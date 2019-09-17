@@ -47,7 +47,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
             var match = regex.Match(evt);
 
             Assert.True(match.Success);
-            Assert.Equal(17, match.Groups.Count);
+            Assert.Equal(16, match.Groups.Count);
 
             DateTime dt;
             var groupMatches = match.Groups.Select(p => p.Value).Skip(1).ToArray();
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
             var match = regex.Match(evt);
 
             Assert.True(match.Success);
-            Assert.Equal(13, match.Groups.Count);
+            Assert.Equal(12, match.Groups.Count);
 
             DateTime dt;
             var groupMatches = match.Groups.Select(p => p.Value).Skip(1).ToArray();
