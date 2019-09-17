@@ -61,7 +61,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
             var match = regex.Match(evt);
 
             Assert.True(match.Success);
-            Assert.Equal(20, match.Groups.Count);
+            Assert.Equal(19, match.Groups.Count);
 
             DateTime dt;
             var groupMatches = match.Groups.Select(p => p.Value).Skip(1).ToArray();
@@ -81,7 +81,6 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
                 p => Assert.Equal(functionInvocationId, p),
                 p => Assert.Equal(hostInstanceId, p),
                 p => Assert.Equal(activityId, p),
-                p => Assert.Equal(runtimeSiteName, p),
                 p => Assert.Equal(_containerName.ToUpperInvariant(), p),
                 p => Assert.Equal(_stampName, p),
                 p => Assert.Equal(_tenantId, p));
@@ -127,7 +126,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
             var match = regex.Match(evt);
 
             Assert.True(match.Success);
-            Assert.Equal(16, match.Groups.Count);
+            Assert.Equal(15, match.Groups.Count);
 
             DateTime dt;
             var groupMatches = match.Groups.Select(p => p.Value).Skip(1).ToArray();
@@ -143,7 +142,6 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
                 p => Assert.Equal(ScriptHost.Version, p),
                 p => Assert.True(DateTime.TryParse(p, out dt)),
                 p => Assert.Equal(data, JsonUnescape(p)),
-                p => Assert.Equal(runtimeSiteName, p),
                 p => Assert.Equal(_containerName.ToUpperInvariant(), p),
                 p => Assert.Equal(_stampName, p),
                 p => Assert.Equal(_tenantId, p));

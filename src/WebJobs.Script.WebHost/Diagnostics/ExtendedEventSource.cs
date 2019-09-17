@@ -160,7 +160,7 @@ namespace Microsoft.Azure.WebJobs.Script.WebHost.Diagnostics
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly")]
         protected void WriteEvent(int eventNum, string a, string b, string c, string d, string e, string f, string g, string h, string i, string j, string k, string l, string m, string n)
         {
-            int count = 13;
+            int count = 14;
             fixed (char* aPtr = a,
                 bPtr = b,
                 cPtr = c,
@@ -214,7 +214,7 @@ namespace Microsoft.Azure.WebJobs.Script.WebHost.Diagnostics
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly")]
         protected void WriteEvent(int eventNum, string a, string b, string c, string d, long e, long f, long g, long h, string i, string j, string k, string l)
         {
-            int count = 11;
+            int count = 12;
             fixed (char* aPtr = a,
                 bPtr = b,
                 cPtr = c,

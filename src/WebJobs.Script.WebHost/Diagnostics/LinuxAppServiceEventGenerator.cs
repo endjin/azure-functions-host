@@ -15,9 +15,9 @@ namespace Microsoft.Azure.WebJobs.Script.WebHost.Diagnostics
             _loggerFactory = loggerFactory;
         }
 
-        public static string TraceEventRegex { get; } = $"(?<Level>[0-6]),(?<SubscriptionId>[^,]*),(?<AppName>[^,]*),(?<FunctionName>[^,]*),(?<EventName>[^,]*),(?<Source>[^,]*),\"(?<Details>.*)\",\"(?<Summary>.*)\",(?<HostVersion>[^,]*),(?<EventTimestamp>[^,]+),(?<ExceptionType>[^,]*),\"(?<ExceptionMessage>.*)\",(?<FunctionInvocationId>[^,]*),(?<HostInstanceId>[^,]*),(?<ActivityId>[^,\"]*),(?<RuntimeSiteName>[^,]*)";
+        public static string TraceEventRegex { get; } = $"(?<Level>[0-6]),(?<SubscriptionId>[^,]*),(?<AppName>[^,]*),(?<FunctionName>[^,]*),(?<EventName>[^,]*),(?<Source>[^,]*),\"(?<Details>.*)\",\"(?<Summary>.*)\",(?<HostVersion>[^,]*),(?<EventTimestamp>[^,]+),(?<ExceptionType>[^,]*),\"(?<ExceptionMessage>.*)\",(?<FunctionInvocationId>[^,]*),(?<HostInstanceId>[^,]*),(?<ActivityId>[^,\"]*)";
 
-        public static string MetricEventRegex { get; } = $"(?<SubscriptionId>[^,]*),(?<AppName>[^,]*),(?<FunctionName>[^,]*),(?<EventName>[^,]*),(?<Average>\\d*),(?<Min>\\d*),(?<Max>\\d*),(?<Count>\\d*),(?<HostVersion>[^,]*),(?<EventTimestamp>[^,]+),(?<Details>[^,\"]*),(?<RuntimeSiteName>[^,]*)";
+        public static string MetricEventRegex { get; } = $"(?<SubscriptionId>[^,]*),(?<AppName>[^,]*),(?<FunctionName>[^,]*),(?<EventName>[^,]*),(?<Average>\\d*),(?<Min>\\d*),(?<Max>\\d*),(?<Count>\\d*),(?<HostVersion>[^,]*),(?<EventTimestamp>[^,]+),(?<Details>[^,\"]*)";
 
         public static string DetailsEventRegex { get; } = $"(?<AppName>[^,]*),(?<FunctionName>[^,]*),\"(?<InputBindings>.*)\",\"(?<OutputBindings>.*)\",(?<ScriptType>[^,]*),(?<IsDisabled>[0|1])";
 
@@ -30,7 +30,7 @@ namespace Microsoft.Azure.WebJobs.Script.WebHost.Diagnostics
             FunctionsSystemLogsEventSource.Instance.SetActivityId(activityId);
 
             var logger = _loggerFactory.GetOrCreate(FunctionsLogsCategory);
-            WriteEvent(logger, $"{(int)ToEventLevel(level)},{subscriptionId},{appName},{functionName},{eventName},{source},{NormalizeString(details)},{NormalizeString(summary)},{hostVersion},{eventTimestamp},{exceptionType},{NormalizeString(exceptionMessage)},{functionInvocationId},{hostInstanceId},{activityId},{runtimeSiteName}");
+            WriteEvent(logger, $"{(int)ToEventLevel(level)},{subscriptionId},{appName},{functionName},{eventName},{source},{NormalizeString(details)},{NormalizeString(summary)},{hostVersion},{eventTimestamp},{exceptionType},{NormalizeString(exceptionMessage)},{functionInvocationId},{hostInstanceId},{activityId}");
         }
 
         public override void LogFunctionMetricEvent(string subscriptionId, string appName, string functionName, string eventName, long average,
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.WebJobs.Script.WebHost.Diagnostics
         {
             var hostVersion = ScriptHost.Version;
             var logger = _loggerFactory.GetOrCreate(FunctionsMetricsCategory);
-            WriteEvent(logger, $"{subscriptionId},{appName},{functionName},{eventName},{average},{minimum},{maximum},{count},{hostVersion},{eventTimestamp.ToString(EventTimestampFormat)},{data},{runtimeSiteName}");
+            WriteEvent(logger, $"{subscriptionId},{appName},{functionName},{eventName},{average},{minimum},{maximum},{count},{hostVersion},{eventTimestamp.ToString(EventTimestampFormat)},{data}");
         }
 
         public override void LogFunctionDetailsEvent(string siteName, string functionName, string inputBindings, string outputBindings,
