@@ -66,8 +66,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
                 p => Assert.Equal(exceptionMessage, p),
                 p => Assert.Equal(functionInvocationId, p),
                 p => Assert.Equal(hostInstanceId, p),
-                p => Assert.Equal(activityId, p),
-                p => Assert.Equal(runtimeSiteName, p));
+                p => Assert.Equal(activityId, p));
         }
 
         [Theory]
@@ -97,8 +96,7 @@ namespace Microsoft.Azure.WebJobs.Script.Tests.Diagnostics
                 p => Assert.Equal(count, long.Parse(p)),
                 p => Assert.Equal(ScriptHost.Version, p),
                 p => Assert.True(DateTime.TryParse(p, out dt)),
-                p => Assert.Equal(data, p),
-                p => Assert.Equal(runtimeSiteName, p));
+                p => Assert.Equal(data, p));
         }
 
         [Theory]
